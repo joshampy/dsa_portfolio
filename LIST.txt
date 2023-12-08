@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class ListByArray {
+    public static void main(String[] args) {
+        // Create a Scanner object for user input
+        Scanner scanner = new Scanner(System.in);
+
+        // Get the size of the array from the user
+        System.out.print("Enter the size of the array: ");
+        int size = scanner.nextInt();
+
+        // Create an array of integers with the specified size
+        int[] numbers = new int[size];
+
+        // Get input from the user to populate the array
+        for (int i = 0; i < size; i++) {
+            System.out.print("Enter elements of array " + ": ");
+            numbers[i] = scanner.nextInt();
+        }
+
+        // Close the scanner
+        scanner.close();
+
+        // Display the content of the array
+        System.out.println("Content of the array:");
+        displayArray(numbers);
+    }
+
+    // Method to display the content of an array
+    private static void displayArray(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}

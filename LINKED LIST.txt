@@ -1,0 +1,114 @@
+class Node {
+    String data;
+    Node prev;
+    Node next;
+
+    public Node(String data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class DoublyLinkedList {
+    private Node head;
+
+    public DoublyLinkedList() {
+        this.head = null;
+    }
+
+    // Insert at the beginning of the list
+    public void insertAtBeginning(String data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+    }
+
+    // Insert at the end of the list
+    public void insertAtEnd(String data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
+    }
+
+    // Delete a node from the list
+    public void delete(String data) {
+        if (head == null) {
+            return;
+        }
+
+        if (head.data.equals(data)) {
+            head = head.next;
+            if (head != null) {
+                head.prev = null;
+            }
+            return;
+        }
+
+        Node current = head;
+        while (current != null && !current.data.equals(data)) {
+            current = current.next;
+        }
+
+        if (current == null) {
+            return; // Node not found
+        }
+
+        if (current.next != null) {
+            current.next.prev = current.prev;
+        }
+        if (current.prev != null) {
+            current.prev.next = current.next;
+        }
+    }
+
+    // Display the elements of the list
+    public void display() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
+
+public class DoublyLinkedListExample {
+    public static void main(String[] args) {
+        DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
+
+        // Insert at the beginning
+        doublyLinkedList.insertAtBeginning("Captain America");
+        doublyLinkedList.insertAtBeginning("Iron Man");
+        doublyLinkedList.insertAtBeginning("Black Widow");
+         doublyLinkedList.insertAtBeginning("Thor");
+
+        // Insert at the end
+        doublyLinkedList.insertAtEnd("Hawkeye");
+        doublyLinkedList.insertAtEnd("Hulk");
+
+        // Display the list
+        System.out.println("Double Linked List: Avengers:");
+        doublyLinkedList.display();
+
+        // Delete a node
+        doublyLinkedList.delete("Iron Man");
+
+        // Display the list after deletion
+        System.out.println("Avengers List after deletion:");
+        doublyLinkedList.display();
+    }
+}

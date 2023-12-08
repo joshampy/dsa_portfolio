@@ -1,0 +1,81 @@
+import java.util.Scanner;
+
+class PostfixEvaluator {
+    double a[] = new double[20];
+    int top;
+
+    PostfixEvaluator() {
+        top = -1;
+    }
+
+    void push(double x) {
+        top++;
+        a[top] = x;
+    }
+
+    double pop() {
+        if (top == -1) {
+            System.out.println("\nImproper expression!" + (char) 7);
+            System.exit(1);
+        }
+        return a[top--];
+    }
+
+    boolean isDigit(char x) {
+        return (x >= '0' && x <= '9');
+    }
+    
+    double val(double v1, double v2, char x) {
+        switch (x) {
+            case '+':
+                return v1 + v2;
+            case '-':
+                return v1 - v2;
+            case '*':
+                return v1 * v2;
+            case '/':
+                return v1 / v2;
+            case '%':
+                return v1 % v2;
+            case '^':
+                return Math.pow(v1, v2); 
+            default:
+                System.out.println("Improper Operation");
+                System.exit(1);
+        }
+        return 1;
+    }
+    
+    double eval(char b[]) {
+        double v1, v2, v;
+        for (int i = 0; i < b.length; i++) {
+            if (isDigit(b[i])) {
+                push((double) (b[i] - '0'));
+            } else {
+                v2 = pop();
+                v1 = pop();
+                v = val(v1, v2, b[i]);
+                push(v);
+            }
+        }
+        if (top != 0) {
+            System.out.println("\nImproper expression" + (char) 7);
+            System.exit(1);
+        }
+        return pop();
+    }
+
+    public static void main(String args[]) {
+        PostfixEvaluator p = new PostfixEvaluator();
+        Scanner scr = new Scanner(System.in);
+        System.out.print("Enter the postfix expression: ");
+        String str = scr.next();
+        char b[] = str.toCharArray();
+        System.out.print("\nValue of the expression is: " + p.eval(b));
+    }
+}
+
+
+
+
+
